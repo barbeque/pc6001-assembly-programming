@@ -12,6 +12,9 @@ putstr:  .equ $30cf
 
 main:
     call cls
+    ld hl, $0a08 ; some kind of coordinate system, low byte row, high byte column?
+    ; $0101 - top left, $0201 - first row, one column to the right?
+    call locate
     ld hl, msg_hello
     call putstr
 
@@ -19,4 +22,4 @@ loop:
     jr loop
 
 msg_hello:
-    .db "Hello PC-6001", $00
+    .db "Hello PC-6001!", $00 ; 14 characters long
