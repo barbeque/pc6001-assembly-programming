@@ -1,0 +1,6 @@
+- [ ] Inufuto conversion
+    - [x] Dump the loader block to z80 assembly again (inufuto-loader.asm)
+    - [ ] Figure out where the game is copied to in RAM
+    - [ ] Do an equivalent copy-to-RAM, but from-ROM instead
+    - [ ] Write a test cart with this loader
+    - [ ] Burn a real cart with this loader
