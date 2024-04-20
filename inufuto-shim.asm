@@ -45,10 +45,10 @@ copy_game:
 
 done_copying:
     pop hl
-    jp (hl) ; run game
 
-loop:
-    jr loop
+    ret ; oops bailing out just to make sure it copied
+
+    jp (hl) ; run game
 
 msg_hello:
     .db "Loading game", $00
