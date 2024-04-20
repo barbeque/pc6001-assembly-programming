@@ -9,11 +9,16 @@ cls:     .equ $1dfb
 locate:  .equ $116d
 putstr:  .equ $30cf
 
+
 .org $4000
 .db "AB"
 .dw main
 
 main:
+    ; there's no way this will work
+    ld a, 2
+    ld (how_many_pages), a
+
     call cls
     ld hl, msg_hello
     call putstr
@@ -46,7 +51,8 @@ copy_game:
 done_copying:
     pop hl
 
-    ret ; bail on it for now
+    ; if you want to return to BASIC before running this, uncomment the next line
+    ; ret
 
     jp (hl) ; run game
 
