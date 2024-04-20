@@ -1,6 +1,8 @@
 - [ ] Inufuto conversion
     - [x] Dump the loader block to z80 assembly again (inufuto-loader.asm)
-    - [ ] Figure out where the game is copied to in RAM
-    - [ ] Do an equivalent copy-to-RAM, but from-ROM instead
+    - [x] Figure out where the game is copied to in RAM
+        - Seems to be $8800 (see the first couple bytes after c9c9c9c9...)
+    - [x] Do an equivalent copy-to-RAM, but from-ROM instead
     - [ ] Write a test cart with this loader
     - [ ] Burn a real cart with this loader
+    - [ ] How do you change count of screens from assembly?
