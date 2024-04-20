@@ -3,6 +3,8 @@
     - [x] Figure out where the game is copied to in RAM
         - Seems to be $8800 (see the first couple bytes after c9c9c9c9...)
     - [x] Do an equivalent copy-to-RAM, but from-ROM instead
+    - [x] Figure out why it is just crashing and restarting?
+    - [ ] Figure out how to set 2-screen mode
     - [ ] Write a test cart with this loader
     - [ ] Burn a real cart with this loader
     - [ ] How do you change count of screens from assembly?

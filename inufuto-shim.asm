@@ -46,6 +46,8 @@ copy_game:
 done_copying:
     pop hl
 
+    ret ; bail on it for now
+
     jp (hl) ; run game
 
 msg_hello:

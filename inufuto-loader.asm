@@ -21,13 +21,13 @@ l010ah:
 	call 01a70h
 	ld b,a      ; load remaining record length
 l011fh:
-	call 01a70h
-	ld (hl),a
-	inc hl
-	dec bc
+	call 01a70h ; load from tape
+	ld (hl),a   ; store in memory
+	inc hl      ; advance pointer
+	dec bc      ; decrement remaining size to copy
 	ld a,b
 	or c
 	jr nz,l011fh ; still more to read?
 	call 01aaah  ; stop motor
-	pop hl
-	jp (hl)      ; jump to first byte written
+	pop hl      ; restore original target pointer
+	jp (hl)      ; jump to first byte written (the game)
