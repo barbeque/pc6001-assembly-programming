@@ -9,15 +9,23 @@ cls:     .equ $1dfb
 locate:  .equ $116d
 putstr:  .equ $30cf
 
+; global variables
+how_many_pages: .equ $fd8c ; How Many Pages?
+end_of_user_area: .equ $fd8d ; End of the user area (2-byte)
+
+; i/o ports
+io_vram_bank: .equ $b0
 
 .org $4000
-.db "AB"
+.db "AB" ; PC-6001 compatible mode ("CD" for PC-6001mkII-only mode)
 .dw main
 
 main:
-    ; there's no way this will work
-    ld a, 2
-    ld (how_many_pages), a
+    ; FIXME: need to set pages = 2 somehow
+    ;ld a, 0
+    ;out ($0b0), a ; this does something weird. active vram bank?
+
+    ; yewdow is doing some weird stuff here before it runs
 
     call cls
     ld hl, msg_hello
