@@ -58,10 +58,15 @@ done_copying:
 
     ; in page=2, the stack is moved downward so it can't
     ; be clobbered by the new video page
-    # it is usually at $f900
+    ; it is usually at $f900
     ; forcibly correct the stack until we figure out what
     ; we are SUPPOSED to do
-    ld sp, $df00
+    ; ld sp, $df00
+    ; it looks like canyon climber forcibly sets SP as well (to $dc51)
+    ; that's what we'll do
+    di
+    ld sp, $dc51
+    ei
 
     jp (hl) ; run game
 
