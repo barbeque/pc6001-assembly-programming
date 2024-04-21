@@ -6,7 +6,7 @@
     - [x] Figure out why it is just crashing and restarting?
     - [ ] Figure out how to set 2-screen mode
         - [x] Set up an experiment to diff the memory dumps between 1 and 2 page
-        - [ ] Yewdow tape and ROM are both setting 2 page mode I believe, how are they doing that?
+        - [x] Yewdow tape and ROM are both setting 2 page mode I believe, how are they doing that?
             - looks like the source to yewdow is out there. chead.asm is involved
             - Startup.asm has the brains? no comments to help me
                 - loads from $fa27
@@ -16,8 +16,14 @@
             - [x] Should I record the Yewdow ROM's write to work area ($fa00+)?
             - [x] Is Yewdow even setting 2 pages? How do we know?
                 - Yewdow isn't even a 32K game!!!
+        - [x] Yewdow tape works when converted, probably because it's a 16K game and doesn't go too far outside of $8800?
+            - [x] How long is it? 8766
+            - [x] How long is Lift? 7644. so that's not it.
+                - [ ] Is Lift trying to overwrite itself?? entry point is $403d
+                    - $13b3 (BIOS) is trying to overwrite $a000 which is part of the game
         - [x] Are there any other Inufuto games on ROM? (Yes, ASCEND)
-        - [ ] Investigate whatever that weird blob with index registers is in the Yewdow source
+        - [ ] What is BASIC doing when it comes up? Run it up to $4004, turn on logging, and then do different runs with a cartridge and without to compare what happens (has to be page 2)
+            - Games affected: Lift, Aerial, Neuras, Ruptus (all 32K games?)
     - [ ] Write a test cart with this loader
     - [ ] Burn a real cart with this loader
     - [ ] How do you change count of screens from assembly?

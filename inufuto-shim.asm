@@ -21,27 +21,6 @@ io_vram_bank: .equ $b0
 .dw main
 
 main:
-    ; FIXME: need to set pages = 2 somehow
-    ld a, ($fa27)
-    and $f9
-    out ($b0), a
-
-    ; yewdow is doing some weird stuff here before it runs
-    ld hl, $c000
-    ld bc, 512
-
-fill_ram:
-    ld (hl), $8c
-    inc hl
-    dec bc
-    ld a, c
-    or b
-    jr nz, fill_ram
-
-    xor a
-    ld ($fa2d), a ; disable click
-
-    ; end yewdow oddness, start my oddness
     call cls
     ld hl, msg_hello
     call putstr
