@@ -20,10 +20,18 @@
             - [x] How long is it? 8766
             - [x] How long is Lift? 7644. so that's not it.
                 - [ ] Is Lift trying to overwrite itself?? entry point is $403d
-                    - $13b3 (BIOS) is trying to overwrite $a000 which is part of the game
+                    - $13b3 (BIOS) is trying to overwrite $a000 which is part of the game... but that would be the case anyway on tape wouldn't it?
         - [x] Are there any other Inufuto games on ROM? (Yes, ASCEND)
         - [ ] What is BASIC doing when it comes up? Run it up to $4004, turn on logging, and then do different runs with a cartridge and without to compare what happens (has to be page 2)
             - Games affected: Lift, Aerial, Neuras, Ruptus (all 32K games?)
+            - They are definitely writing into "page 2" memory, but maybe it has to set one of the control pointers for the video RAM?
+            - Is a 16K game writing to page 2? Yeah of course it is
+            - I assume the machine starts out in "16K format or page 2 format" and I am stomping on something I should not be able to stomp on.
+                - MAME seems to run it always in 32K mode, which is ok by me
+                - So it must be something I have to move out of the way in page=2
+                - [x] Are there any writes to the Page Work calls like $fdc8 to $fdfe or $fdff to $fe35 when you put in basic page=2? Does not appear to be.
+                - [x] Does $FD91 change? Does not appear to.
+    - [ ] Figure out who is calling the magic $00be code that relocates the stack (it is probably a BIOS endpoint)
     - [ ] Write a test cart with this loader
     - [ ] Burn a real cart with this loader
     - [ ] How do you change count of screens from assembly?

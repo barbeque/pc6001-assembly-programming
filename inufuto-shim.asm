@@ -56,6 +56,13 @@ done_copying:
     ; if you want to return to BASIC before running this, uncomment the next line
     ; ret
 
+    ; in page=2, the stack is moved downward so it can't
+    ; be clobbered by the new video page
+    # it is usually at $f900
+    ; forcibly correct the stack until we figure out what
+    ; we are SUPPOSED to do
+    ld sp, $df00
+
     jp (hl) ; run game
 
 msg_hello:
