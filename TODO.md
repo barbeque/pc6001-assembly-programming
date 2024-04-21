@@ -5,6 +5,19 @@
     - [x] Do an equivalent copy-to-RAM, but from-ROM instead
     - [x] Figure out why it is just crashing and restarting?
     - [ ] Figure out how to set 2-screen mode
+        - [x] Set up an experiment to diff the memory dumps between 1 and 2 page
+        - [ ] Yewdow tape and ROM are both setting 2 page mode I believe, how are they doing that?
+            - looks like the source to yewdow is out there. chead.asm is involved
+            - Startup.asm has the brains? no comments to help me
+                - loads from $fa27
+                - sets some kind of bitflag on out port $0d (vram bank)
+                - overwrites 512 bytes from $c000 as $8c
+                - $fa2d seems to be key click
+            - [x] Should I record the Yewdow ROM's write to work area ($fa00+)?
+            - [x] Is Yewdow even setting 2 pages? How do we know?
+                - Yewdow isn't even a 32K game!!!
+        - [x] Are there any other Inufuto games on ROM? (Yes, ASCEND)
+        - [ ] Investigate whatever that weird blob with index registers is in the Yewdow source
     - [ ] Write a test cart with this loader
     - [ ] Burn a real cart with this loader
     - [ ] How do you change count of screens from assembly?

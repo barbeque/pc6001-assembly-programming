@@ -1,3 +1,5 @@
 *.bin
+*.rom
+*.p6
 *temp_rom*
 *.lst

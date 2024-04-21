@@ -14,6 +14,10 @@ with open('inufuto-shim.asm', 'r') as f:
 # assume offset 0x110, it seems to be the case for Lift at least
 game_chunk = tape_contents[0x110:]
 
+with open('chunk-dump.bin', 'wb') as f:
+    # dump the game chunk so we can disassemble it
+    f.write(game_chunk)
+
 # should be after the 'game:' label
 preamble += '\n'
 preamble += '.db '
