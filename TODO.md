@@ -33,6 +33,5 @@
                 - [x] Does $FD91 change? Does not appear to.
     - [x] Figure out who is calling the magic $00be code that relocates the stack (it is probably a BIOS endpoint)
         - No idea, Canyon Climber directly breaks SP
-    - [ ] Write a test cart with this loader
     - [ ] Burn a real cart with this loader
-    - [ ] How do you change count of screens from assembly?
+    - [ ] How are you really supposed to change count of pages from assembly?
