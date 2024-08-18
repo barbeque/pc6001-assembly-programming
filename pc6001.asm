@@ -41,3 +41,24 @@ loop:
 
 msg_hello:
     .db "Hello PC-6001!", $00 ; 14 characters long
+
+; video notes:
+;   - PORT $b0: http://000.la.coocan.jp/p6/tech.html#b0
+;       - port $b0 bits 2 and 1 control the display VRAM address
+;       - can read the current value from work area, but out doesn't set it
+;       - Original device screen mode: 00=C000h 01=E000h 10=8000h 11=A000h	
+;   - original recipe screen modes: http://000.la.coocan.jp/p6/tech.html#mc6847
+;       - there are other modes but these are the ones they kept for mk2
+;       - mode 1: 32x16 4-colour char mode
+;       - mode 2: 64x48 8-colour semigraphics mode
+;       - mode 3: 128x192 4-colour graphics mode (i think this is what we want)
+;       - mode 4: 256x192 2-colour graphics mode
+;   - ATTRIBUTE bytes
+;       - each line is broken into 32 columns?
+;       - attribute byte controls 12 lines of that column? with "16 lines in between?" what
+;       - 32 bytes: 1 line, MSB is left side of screen
+
+; in antiair:
+;    ld a,(0fa27h)  (port b0h last written value)
+;    and 0f9h       (clear bits 1 and 2)
+;    out (0b0h),a   (write register. vram top is now $c000. ah so this is how the pages work)
