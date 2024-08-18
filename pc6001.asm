@@ -12,14 +12,18 @@ cnsmain: .equ $1d52
 console1: .equ $fda2
 console2: .equ $fda3
 console3: .equ $fda6
+key_click_enabled: .equ $fa2d
 
 .org $4000
 .db "AB"
 .dw main
 
 main:
+    ; disable key click sound
+    xor a
+    ld (key_click_enabled), a
+
     ; hide the f-key bar
-    ld a, 0
     ld (console3), a
     call cnsmain
 
