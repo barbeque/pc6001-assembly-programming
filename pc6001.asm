@@ -18,12 +18,12 @@ console3: .equ $fda6
 .dw main
 
 main:
+    ; hide the f-key bar
     ld a, 0
     ld (console3), a
-    ld (console1), a
-    ld a, 20
-    ld (console2), a
     call cnsmain
+
+    ; clear the screen
     call cls
 
     ld hl, $0a08 ; some kind of coordinate system, low byte row, high byte column?
