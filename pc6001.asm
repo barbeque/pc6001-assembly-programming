@@ -63,14 +63,12 @@ set_attributes:
     ld hl, $c200
     ld bc, VRAM_ROW_SIZE * VRAM_HEIGHT
 erase_vram:
-    ld (hl), $bb ; bars!!
+    ld (hl), 0b10101010 ; blue for every quad
     inc hl
     dec bc
     ld a, c
     or b
     jr nz, erase_vram
-
-    ; TODO: Figure out how to write attribute bytes
 
 loop:
     jr loop
