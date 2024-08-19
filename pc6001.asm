@@ -61,9 +61,9 @@ set_attributes:
 
     ; wipe the display portion of VRAM
     ld hl, $c200
-    ld bc, VRAM_ROW_SIZE * VRAM_HEIGHT
+    ld bc, VRAM_ROW_SIZE * VRAM_HEIGHT ; or 128 x 192 divided by 4 = 6144
 erase_vram:
-    ld (hl), 0b10101010 ; blue for every quad
+    ld (hl), 0b01101001 ; blue yellow yellow blue
     inc hl
     dec bc
     ld a, c
