@@ -8,11 +8,18 @@ putstr:  .equ $30cf
 console: .equ $1cf6
 cnsmain: .equ $1d52
 
+#define VRAM_WIDTH 32
+#define VRAM_HEIGHT 24
+#define CHAR_HEIGHT 8
+#define VRAM_ROW_SIZE VRAM_WIDTH * CHAR_HEIGHT
+
 ; globals
 console1: .equ $fda2
 console2: .equ $fda3
 console3: .equ $fda6
 key_click_enabled: .equ $fa2d
+; The last value BASIC wrote to $b0 (VRAM set)
+port_b0: .equ $fa27
 
 .org $4000
 .db "AB"
@@ -30,11 +37,40 @@ main:
     ; clear the screen
     call cls
 
-    ld hl, $0a08 ; some kind of coordinate system, low byte row, high byte column?
+    ;ld hl, $0a08 ; some kind of coordinate system, low byte row, high byte column?
     ; $0101 - top left, $0201 - first row, one column to the right?
-    call locate
-    ld hl, msg_hello
-    call putstr
+    ;call locate
+    ;ld hl, msg_hello
+    ;call putstr
+
+    ; now try to get into graphics mode
+    ld a, (port_b0)
+    and $f9 ; clear the vram address bits 1, 2 - point to $c000
+    out ($b0), a
+
+    ; write attribute bytes
+    ld hl, $c000
+    ld bc, 512 ; why 512? inufuto did it too
+set_attributes:
+    ld (hl), $8c ; green yellow blue red (mode 3)
+    inc hl
+    dec bc
+    ld a, c
+    or b
+    jr nz, set_attributes
+
+    ; wipe the display portion of VRAM
+    ld hl, $c200
+    ld bc, VRAM_ROW_SIZE * VRAM_HEIGHT
+erase_vram:
+    ld (hl), $bb ; bars!!
+    inc hl
+    dec bc
+    ld a, c
+    or b
+    jr nz, erase_vram
+
+    ; TODO: Figure out how to write attribute bytes
 
 loop:
     jr loop
@@ -62,3 +98,7 @@ msg_hello:
 ;    ld a,(0fa27h)  (port b0h last written value)
 ;    and 0f9h       (clear bits 1 and 2)
 ;    out (0b0h),a   (write register. vram top is now $c000. ah so this is how the pages work)
+
+; oh i get it now. the palettes are the first 512 bytes of the video ram,
+; starting at $c000. actual pixels start at $c200!!!
+; fucking google translate.
