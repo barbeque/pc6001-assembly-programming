@@ -70,11 +70,28 @@ erase_vram:
     or b
     jr nz, erase_vram
 
+    ; let's go, copy the image into ram
+    ld hl, PIC
+    ld de, $c200 ; start of vram
+    ld bc, (PIC_LEN)
+blast_image:
+    ; ldi would be faster, but something is up
+    ld a, (hl)
+    ld (de), a
+    inc de
+    inc hl
+    dec bc
+    ld a, c
+    or b
+    jr nz, blast_image
+
 loop:
     jr loop
 
 msg_hello:
     .db "Hello PC-6001!", $00 ; 14 characters long
+
+.include "meules.asm"
 
 ; video notes:
 ;   - PORT $b0: http://000.la.coocan.jp/p6/tech.html#b0

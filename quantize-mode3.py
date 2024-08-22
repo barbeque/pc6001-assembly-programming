@@ -24,15 +24,15 @@ def pack_into_byte(a):
         assert(a[b] >= 0)
         assert(a[b] < 4)
         tb = (tb << 2) | (a[b])
-        print(bin(tb))
     return tb
 
 assert(pack_into_byte([0,0,0,0]) == 0)
 assert(pack_into_byte([3,3,3,3]) == 0xff)
-assert(pack_into_byte([0,1,2,3]) == 0b00011011)
+assert(pack_into_byte([0,1,2,3]) == 0b00_01_10_11)
 
 # go through and generate the asm now
-buf = ''
+buf = 'PIC: '
+length = 0
 pixels = newimage.load()
 for y in range(MODE_3_SIZE[1]):
     buf += '.db '
@@ -49,6 +49,10 @@ for y in range(MODE_3_SIZE[1]):
         ])
         bytes_buf.append(tb)
         x += 4
-    buf += ', '.join([str(b) for b in bytes_buf]) + '\n'
+        length += 4
+    buf += ', '.join([hex(b) for b in bytes_buf]) + '\n'
+
+assert(length == MODE_3_SIZE[1] * MODE_3_SIZE[0])
+buf += 'PIC_LEN: .dw ' + str(length // 4) + '\n'
 
 print(buf)

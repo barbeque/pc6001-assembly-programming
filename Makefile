@@ -5,13 +5,16 @@ mame_args = -skip_gameinfo -window # -aviwrite pc6001.avi
 asm_args = -w
 asm = zasm
 
-pc6001.bin: pc6001.asm 
+pc6001.bin: pc6001.asm meules.asm 
 	$(asm) $(asm_args) pc6001.asm -o pc6001.bin
+
+meules.asm:
+	python3 quantize-mode3.py meules.png > meules.asm
 
 all: pc6001.bin 
 
 clean:
-	rm -f pc6001.bin pc6001.lst
+	rm -f pc6001.bin pc6001.lst meules.asm
 
 run: pc6001.bin
 	cd $(mame_dir) && $(MAME) pc6001 $(mame_args) -cart1 $(local_path)pc6001.bin
