@@ -74,16 +74,7 @@ erase_vram:
     ld hl, PIC
     ld de, $c200 ; start of vram
     ld bc, (PIC_LEN)
-blast_image:
-    ; ldi would be faster, but something is up
-    ld a, (hl)
-    ld (de), a
-    inc de
-    inc hl
-    dec bc
-    ld a, c
-    or b
-    jr nz, blast_image
+    ldir ; slower than ldi but i can't get it to work
 
 loop:
     jr loop
