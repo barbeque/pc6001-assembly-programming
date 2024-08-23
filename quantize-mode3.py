@@ -8,12 +8,16 @@ MODE_3_PALETTE = [
 
 MODE_3_SIZE = (128, 192)
 
-from PIL import Image, ImagePalette
+from PIL import Image
 
 palette = Image.new('P', (4,1))
 palette.putpalette(MODE_3_PALETTE)
 
-oldimage = Image.open('meules.png').convert('RGB').transpose(Image.ROTATE_270).resize(MODE_3_SIZE)
+oldimage = Image.open('meules.png').convert('RGB')
+
+# figure out the ratio and scale proportionally
+oldimage.thumbnail(MODE_3_SIZE)
+
 newimage = oldimage.quantize(4, palette=palette)
 newimage.save('meules-4.png')
 
@@ -34,12 +38,15 @@ assert(pack_into_byte([0,1,2,3]) == 0b00_01_10_11)
 buf = 'PIC: '
 length = 0
 pixels = newimage.load()
-for y in range(MODE_3_SIZE[1]):
+
+real_size = newimage.size
+
+for y in range(real_size[1]):
     buf += '.db '
 
     x = 0
     bytes_buf = []
-    while x < MODE_3_SIZE[0]:
+    while x + 3 < real_size[0]:
         # pack into 1-byte chunks (2-bits each)
         tb = pack_into_byte([
             pixels[x, y],
@@ -52,7 +59,9 @@ for y in range(MODE_3_SIZE[1]):
         length += 4
     buf += ', '.join([hex(b) for b in bytes_buf]) + '\n'
 
-assert(length == MODE_3_SIZE[1] * MODE_3_SIZE[0])
+assert(length == real_size[0] * real_size[1])
 buf += 'PIC_LEN: .dw ' + str(length // 4) + '\n'
+buf += f'PIC_WIDTH: .db {real_size[0]}\n'
+buf += f'PIC_HEIGHT: .db {real_size[1]}\n'
 
 print(buf)
