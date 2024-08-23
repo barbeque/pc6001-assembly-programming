@@ -16,7 +16,8 @@ palette.putpalette(MODE_3_PALETTE)
 oldimage = Image.open('meules.png').convert('RGB')
 
 # figure out the ratio and scale proportionally
-oldimage.thumbnail(MODE_3_SIZE)
+# oldimage.thumbnail(MODE_3_SIZE)
+oldimage = oldimage.resize(MODE_3_SIZE)
 
 newimage = oldimage.quantize(4, palette=palette)
 newimage.save('meules-4.png')
@@ -42,8 +43,6 @@ pixels = newimage.load()
 real_size = newimage.size
 
 for y in range(real_size[1]):
-    buf += '.db '
-
     x = 0
     bytes_buf = []
     while x + 3 < real_size[0]:
@@ -57,7 +56,7 @@ for y in range(real_size[1]):
         bytes_buf.append(tb)
         x += 4
         length += 4
-    buf += ', '.join([hex(b) for b in bytes_buf]) + '\n'
+    buf += '.db ' + ', '.join([hex(b) for b in bytes_buf]) + '\n'
 
 assert(length == real_size[0] * real_size[1])
 buf += 'PIC_LEN: .dw ' + str(length // 4) + '\n'
