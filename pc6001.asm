@@ -72,7 +72,7 @@ erase_vram:
 
     ; let's go, copy the image into ram
     ld hl, PIC
-    ld de, $c200 ; start of vram
+    ld de, $c200 + (((192-72)/2) * 128)/4 ; centre the image vertically
     ld bc, (PIC_LEN)
     ldir ; slower than ldi but i can't get it to work
 
