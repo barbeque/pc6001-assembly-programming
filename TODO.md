@@ -1,4 +1,4 @@
-- [ ] Inufuto conversion
+- [x] Inufuto conversion
     - [x] Dump the loader block to z80 assembly again (inufuto-loader.asm)
     - [x] Figure out where the game is copied to in RAM
         - Seems to be $8800 (see the first couple bytes after c9c9c9c9...)
@@ -33,5 +33,5 @@
                 - [x] Does $FD91 change? Does not appear to.
     - [x] Figure out who is calling the magic $00be code that relocates the stack (it is probably a BIOS endpoint)
         - No idea, Canyon Climber directly breaks SP
-    - [ ] Burn a real cart with this loader
+    - [x] Burn a real cart with this loader
     - [ ] How are you really supposed to change count of pages from assembly?
