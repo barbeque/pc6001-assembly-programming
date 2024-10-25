@@ -1,4 +1,5 @@
 *.bin
+*.zip
 *.rom
 *.p6
 *temp_rom*
