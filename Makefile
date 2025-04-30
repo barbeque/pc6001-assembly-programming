@@ -1,4 +1,4 @@
-MAME = /Users/mike/mame0253-arm64/mame
+MAME = /Users/mike/mame0276-arm64/mame
 mame_dir = $(dir $(MAME))
 local_path = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 mame_args = -skip_gameinfo -window # -aviwrite pc6001.avi
