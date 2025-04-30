@@ -6,4 +6,4 @@ Files
 
 | File | Purpose | Notes |
 |------|---------|-------|
-| pc6001.asm | PC-6001 hello world | Burn this to a cartridge for PC-6006 |
+| pc6001.asm | PC-6001 "Meules" graphic demo | Burn this to a cartridge for PC-6006 |
